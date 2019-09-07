@@ -10,23 +10,16 @@ class LoginComponent extends Form {
   };
 
   async doSubmit() {
-      const users = await login(this.state.account.username);
-      if(this.validateLogin(users)) {
-        this.props.history.push(`/devices/${users.data[0].username}`);
-      };
+    const { data } = await login(this.state.account.username);
+    if (this.validateLogin(data[0])) {
+      this.props.history.push(`/devices/${data[0].id}`);
+    }
   }
 
   render() {
-    const pStyle = {
-      backgroundColor: "#F7F9F9",
-      width: "50%",
-      top: "25%",
-      left: "25%",
-      position: "absolute",
-      padding: "5%"
-    };
     return (
-      <div className="container" style={pStyle}>
+      <div className="container" style={this.renderStyle()}>
+        <h5 style={{textAlign:"center",color:"#0000FF"}}>Login</h5>  
         <form onSubmit={this.handleSubmit}>
           <Input
             name="username"
@@ -48,6 +41,15 @@ class LoginComponent extends Form {
         </form>
       </div>
     );
+  }
+
+  renderStyle() {
+    return {
+      backgroundColor: "#F7F9F9",
+      width: "30%",
+      marginTop: "10%",
+      padding: "3%"
+    };
   }
 }
 
