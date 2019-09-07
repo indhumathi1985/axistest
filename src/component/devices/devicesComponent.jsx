@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SiteService from "../../services/siteService";
+import DeviceService from "../../services/deviceService";
 import Table from "../../common/table";
 
 class DevicesComponent extends Component {
@@ -9,9 +9,9 @@ class DevicesComponent extends Component {
   };
 
   async componentDidMount() {
-    const sites = await SiteService.getSites(this.props.match.params.id);
+    const sites = await DeviceService.getSites(this.props.match.params.id);
     if (sites.data.length > 0) {
-      const { data } = await SiteService.getDevices(sites.data[0].id);
+      const { data } = await DeviceService.getDevices(sites.data[0].id);
       this.setState({ devices: data, sites: sites.data[0] });
     }
   }
@@ -36,10 +36,7 @@ class DevicesComponent extends Component {
             {devices.map(device => (
               <Table
                 key={device.id}
-                id={device.id}
-                title={device.title}
-                description={device.description}
-                model={device.model}
+                device={device}
                 handleRowClick={this.handleClick}
               />
             ))}

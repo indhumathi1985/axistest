@@ -5,12 +5,12 @@ class Table extends Component {
     return (
       <tr
         style={{ cursor: "pointer" }}
-        onClick={() => this.props.handleRowClick(this.props.id)}
+        onClick={() => this.props.handleRowClick(this.props.device.id)}
       >
-        <td>{this.props.id}</td>
-        <td>{this.props.title}</td>
-        <td>{this.props.description}</td>
-        <td>{this.props.model}</td>
+        <td>{this.props.device.id}</td>
+        <td>{this.props.device.title}</td>
+        <td>{this.props.device.description}</td>
+        <td>{this.props.device.model}</td>
       </tr>
     );
   }

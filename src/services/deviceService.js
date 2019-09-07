@@ -3,14 +3,18 @@ import { apiUrl } from '../config.json'
 
 const apiEndpoint = `${apiUrl}`;
 
-const SiteService = {
+const DeviceService = {
     getSites: async(id) => {
         return await http.get(getUrl("sites",id));
     },
 
     getDevices: async(id) => {
         return await http.get(getUrl("devices",id));
-    }
+    },
+
+    getDeviceById: async(id) => {
+        return await http.get(`${apiEndpoint}/devices/?id=${id}`);
+    },
 
 }
 
@@ -23,5 +27,5 @@ function getUrl(type, id){
     return (`${apiEndpoint}/${type}/?${id}`);
 }
 
-export default SiteService;
+export default DeviceService;
 
