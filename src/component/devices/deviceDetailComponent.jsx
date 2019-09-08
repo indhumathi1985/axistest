@@ -9,7 +9,7 @@ class DeviceDetailcomponent extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
     const device = await DeviceService.getDeviceById(id);
-    this.setState({ device: device.data[0] });
+    this.setState({ device: device.data[0]});
   }
 
   render() {
@@ -23,7 +23,7 @@ class DeviceDetailcomponent extends Component {
               <input
                 type="text"
                 disabled={true}
-                className="form-control "
+                className="form-control"
                 size="10"
                 value={device.value}
               />
@@ -31,7 +31,10 @@ class DeviceDetailcomponent extends Component {
           </div>
         ))}
         <div className="row justify-content-end ">
-          <button type="button" className="btn btn-primary m-3">
+          <button
+            type="button"
+            className="btn btn-primary m-3"
+            onClick={this.backToDevice}>
             Back
           </button>
         </div>
@@ -39,16 +42,18 @@ class DeviceDetailcomponent extends Component {
     );
   }
 
+  backToDevice = () => {
+    this.props.history.replace(`/devices/${this.state.device.site_id}`);
+  };
+
   renderDeviceDetail(device) {
     let deviceParams = [];
-    let k;
-    let i = 0;
-    for (k in device) {
-      if (!Array.isArray(device[k])) {
+    let key;
+    for (key in device) {
+      if (!Array.isArray(device[key])) {
         deviceParams.push({
-          key: i++,
-          label: k.charAt(0).toUpperCase() + k.substring(1),
-          value: device[k]
+          label: key.charAt(0).toUpperCase() + key.substring(1),
+          value: device[key]
         });
       }
     }
@@ -59,7 +64,7 @@ class DeviceDetailcomponent extends Component {
     return {
       width: "40%",
       backgroundColor: "#F7F9F9",
-      marginTop: "10%",
+      marginTop: "5%",
       padding: "2%"
     };
   }

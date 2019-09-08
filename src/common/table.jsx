@@ -5,8 +5,7 @@ class Table extends Component {
     return (
       <tr
         style={{ cursor: "pointer" }}
-        onClick={() => this.props.handleRowClick(this.props.device.id)}
-      >
+        onClick={() => this.props.handleRowClick(this.props.device.id)}>
         <td>{this.props.device.id}</td>
         <td>{this.props.device.title}</td>
         <td>{this.props.device.description}</td>

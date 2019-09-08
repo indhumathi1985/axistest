@@ -45,17 +45,17 @@ class Form extends Component {
     else this.doSubmit();
   };
 
-  validateLogin = (data) => {
+  validateLogin = data => {
     const errors = { ...this.state.errors };
     if (data === undefined) {
       errors.username = "Invalid user";
-    }else if (data.password !== this.state.account.password) {
+    } else if (data.password !== this.state.account.password) {
       errors.password = "Wrong password";
     }
 
     this.setState({ errors });
     return Object.keys(errors).length === 0 ? true : false;
-  }
+  };
 
   renderButton(label) {
     return <button className="btn btn-primary">{label}</button>;
