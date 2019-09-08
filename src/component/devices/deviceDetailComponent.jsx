@@ -13,63 +13,46 @@ class DeviceDetailcomponent extends Component {
   }
 
   render() {
-    const device = this.state.device;
+    const devices = this.state.device;
     return (
       <div className="container" style={this.renderStyle()}>
-        <div class="form-group row">
-          <label class="col-sm-5 col-form-label">
-            <b>Description:</b>
-          </label>
-          <div class="col-sm-7">
-            <input
-              type="text"
-              readonly
-              class="form-control-plaintext"
-              value={device.description}
-            />
+        {this.renderDeviceDetail(devices).map(device => (
+          <div className="form-group row">
+            <label className="col-md-7">{device.label}</label>
+            <div className="col-md-5">
+              <input
+                type="text"
+                disabled={true}
+                className="form-control "
+                size="10"
+                value={device.value}
+              />
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-5 col-form-label">
-            <b>Model:</b>
-          </label>
-          <div class="col-sm-7">
-            <input
-              type="text"
-              readonly
-              class="form-control-plaintext"
-              value={device.model}
-            />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-5 col-form-label">
-            <b>Version:</b>
-          </label>
-          <div class="col-sm-7">
-            <input
-              type="text"
-              readonly
-              class="form-control-plaintext"
-              value={device.version}
-            />
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-5 col-form-label">
-            <b>TimeZone:</b>
-          </label>
-          <div class="col-sm-7">
-            <input
-              type="text"
-              readonly
-              class="form-control-plaintext"
-              value={device.timezone}
-            />
-          </div>
+        ))}
+        <div className="row justify-content-end ">
+          <button type="button" className="btn btn-primary m-3">
+            Back
+          </button>
         </div>
       </div>
     );
+  }
+
+  renderDeviceDetail(device) {
+    let deviceParams = [];
+    let k;
+    let i = 0;
+    for (k in device) {
+      if (!Array.isArray(device[k])) {
+        deviceParams.push({
+          key: i++,
+          label: k.charAt(0).toUpperCase() + k.substring(1),
+          value: device[k]
+        });
+      }
+    }
+    return deviceParams;
   }
 
   renderStyle() {

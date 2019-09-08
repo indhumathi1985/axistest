@@ -18,32 +18,38 @@ class DevicesComponent extends Component {
 
   render() {
     const devices = this.state.devices;
-    return (
-      <div>
-        <h5 style={{ textAlign: "center", margin: "2%" }}>
-          Devices Connected to the {this.state.sites.owner}
-        </h5>
-        <table className="table" style={this.renderStyle()}>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Model</th>
-            </tr>
-          </thead>
-          <tbody>
-            {devices.map(device => (
-              <Table
-                key={device.id}
-                device={device}
-                handleRowClick={this.handleClick}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+    if (devices.length === 0) {
+      return (
+        <h5 style={{ textAlign: "center", margin: "2%" }}>No Devices!!!</h5>
+      );
+    } else {
+      return (
+        <div>
+          <h5 style={{ textAlign: "center", margin: "2%" }}>
+            Devices Connected to the {this.state.sites.owner}
+          </h5>
+          <table className="table" style={this.renderStyle()}>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Model</th>
+              </tr>
+            </thead>
+            <tbody>
+              {devices.map(device => (
+                <Table
+                  key={device.id}
+                  device={device}
+                  handleRowClick={this.handleClick}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
   }
 
   handleClick = id => {
