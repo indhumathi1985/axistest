@@ -8,8 +8,8 @@ class DeviceDetailcomponent extends Component {
 
   async componentDidMount() {
     const id = this.props.match.params.id;
-    const device = await DeviceService.getDeviceById(id);
-    this.setState({ device: device.data[0]});
+    const { data } = await DeviceService.getDeviceById(id);
+    this.setState({ device: data[0]});
   }
 
   render() {
@@ -24,7 +24,6 @@ class DeviceDetailcomponent extends Component {
                 type="text"
                 disabled={true}
                 className="form-control"
-                size="10"
                 value={device.value}
               />
             </div>

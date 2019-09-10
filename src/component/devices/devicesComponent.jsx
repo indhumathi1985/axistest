@@ -1,18 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import DeviceService from "../../services/deviceService";
-import Table from "../../common/table";
+import TableData from "../../common/tableData";
 
-class DevicesComponent extends Component {
+class DevicesComponent extends TableData {
   state = {
     devices: [],
     sites: []
   };
 
   async componentDidMount() {
-    const sites = await DeviceService.getSites(this.props.match.params.id);
-    if (sites.data.length > 0) {
-      const { data } = await DeviceService.getDevices(sites.data[0].id);
-      this.setState({ devices: data, sites: sites.data[0] });
+    const { data: sites } = await DeviceService.getSites(
+      this.props.match.params.id
+    );
+    if (sites.length > 0) {
+      const { data } = await DeviceService.getDevices(sites[0].id);
+      this.setState({ devices: data, sites: sites[0] });
     }
   }
 
@@ -31,21 +33,13 @@ class DevicesComponent extends Component {
           <table className="table" style={this.renderStyle()}>
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Model</th>
+                {this.renderHeader("#")}
+                {this.renderHeader("Title")}
+                {this.renderHeader("Description")}
+                {this.renderHeader("Model")}
               </tr>
             </thead>
-            <tbody>
-              {devices.map(device => (
-                <Table
-                  key={device.id}
-                  device={device}
-                  handleRowClick={this.handleClick}
-                />
-              ))}
-            </tbody>
+            <tbody>{devices.map(device => this.renderRow(device))}</tbody>
           </table>
         </div>
       );
